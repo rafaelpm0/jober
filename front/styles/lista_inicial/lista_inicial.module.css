@@ -1,0 +1,19 @@
+.container button{
+    width: 35%;
+    height: 40px;
+    background-color: var(--cinza-claro);
+    border: 2px solid #353535;
+    color: #353535;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 700;
+    padding: 4px;
+}
+
+.container button:hover{
+    background-color: #353535;
+    color: var(--cinza-claro);
+
+}

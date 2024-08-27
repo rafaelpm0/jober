@@ -7,6 +7,8 @@ import "./globals.css";
 
 import styles from "../../styles/container_global.module.css"
 
+
+
 const nunito_sans = Nunito_Sans({ subsets: ["latin"] });
 
 export const metadata = {
