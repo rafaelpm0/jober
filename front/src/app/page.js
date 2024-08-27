@@ -1,13 +1,15 @@
 import Image from "next/image";
-import Header from "../../components/header"
 
 
-export default function Home({children}) {
+export default function Job() {
   return (
     <>
-    <Header/>
     <main>
-      {children}
+
+      <section>
+        <button>Adicionar Job</button>
+      </section>
+
     </main>
     </>
 
