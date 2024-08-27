@@ -28,35 +28,34 @@ class Job(models.Model):
 
 
 class Image(models.Model):
-    
+
     """
     Modelo que representa uma imagem associada a um trabalho (Job).
 
     Atributos:
     ----------
-    job : ForeignKey
-        Chave estrangeira que referencia o trabalho (Job) associado. Se o Job for excluído, a imagem também será removida.
-   
+    job : OneToOneField
+        Chave estrangeira que cria uma relação de um-para-um com o modelo Job.
+        Se o Job for excluído, a imagem associada também será removida.
     name : CharField
         Nome do arquivo de imagem, com comprimento máximo de 350 caracteres.
-   
     type : CharField
         Tipo MIME do arquivo, com comprimento máximo de 50 caracteres.
     content : TextField
         Conteúdo da imagem em formato Base64.
     """
-
-    job = models.ForeignKey(
+    
+    job = models.OneToOneField(
         Job,
         on_delete=models.CASCADE,
-        related_name='job'
+        related_name='image'
     )
 
-    name = models.CharField(max_length=350) 
-    type = models.CharField(max_length=50)  
-    content = models.TextField()  
+    name = models.CharField(max_length=350)  # Campo para o nome do arquivo
+    type = models.CharField(max_length=50)  # Campo para o tipo MIME do arquivo
+    content = models.TextField()  # Campo para o conteúdo Base64 da imagem
 
     def __str__(self):
-        return f"{self.name} ({self.job.name})"    
+        return f"{self.name} ({self.job.name})"   
 
 
