@@ -1,10 +1,15 @@
 import Image from "next/image";
+import Header from "../../components/header"
 
-export default function Home() {
+
+export default function Home({children}) {
   return (
-    <body>
-      <h1>Title</h1>
-      <h2>Title</h2>
-    </body>
+    <>
+    <Header/>
+    <main>
+      {children}
+    </main>
+    </>
+
   );
 }

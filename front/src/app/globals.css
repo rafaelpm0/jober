@@ -11,9 +11,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --cinza-escuro: #333333;
+  --cinza-escuro-forte: #333333
+  --cinza-escuro:#5e5e5e;
   --cinza-medio: #888888;
-  --cinza-claro: #CCCCCC;
+  --cinza-claro: #ccccccc0;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -90,12 +91,8 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: var(--cinza-claro);
+
 }
 
 a {

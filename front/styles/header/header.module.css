@@ -1,0 +1,14 @@
+.container{
+    height: 60px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.16);
+    background-color: var(--cinza-claro);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container h1{
+    font-size: 32px;
+    line-height: 32px;
+    color: var(--cinza-escuro--forte);
+}
