@@ -29,17 +29,33 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 
-class JobSerializerB(serializers.ModelSerializer):
+class JobSerializer(serializers.ModelSerializer):
 
     """
-    Serializer para o modelo Job, com suporte opcional para imagem associada e remoção de imagem.
+    Serializer para o modelo Job com suporte opcional para imagem associada e remoção de imagem.
 
     Atributos:
     ----------
-    image : ImageSerializer
-        Serializer para a imagem associada ao Job, opcional.
-    del_image : BooleanField
-        Campo booleano para indicar se a imagem associada deve ser removida, opcional.
+    image : ImageSerializer, optional
+        Serializer para a imagem associada ao Job. Este campo é opcional e pode ser incluído ou removido
+        dependendo da configuração do serializer.
+    del_image : BooleanField, optional
+        Campo booleano que indica se a imagem associada deve ser removida. Este campo é opcional e
+        só é relevante quando se deseja remover a imagem associada ao Job. Caso o campo imagem seja enviado,
+        junto, o delete surte o mesmo efeito.
+
+    Meta:
+    -----
+    model : Job
+        O modelo que este serializer está configurado para serializar.
+    fields : list
+        Lista de campos do modelo Job a serem incluídos na serialização. Inclui:
+        - 'id': ID do Job.
+        - 'job_name': Nome do Job.
+        - 'job_create_at': Data e hora de criação do Job.
+        - 'job_description': Descrição do Job.
+        - 'image': Serializer da imagem associada (se aplicável).
+        - 'del_image': Flag para remover a imagem associada (se aplicável).
     """
 
     image = ImageSerializer(required=False) 
