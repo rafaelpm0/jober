@@ -153,10 +153,9 @@ def job_manager(request):
     if request.method == "POST":
     
         news_job = request.data
-        serializer = JobSerializer(data=news_job)
+        serializer = JobSerializer(data=news_job, include_image=True)
         
         if serializer.is_valid():
-            
             job = serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         

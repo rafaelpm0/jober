@@ -25,10 +25,13 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
-        fields = ['name', 'type', 'content', 'job_id']
+        fields = ['name', 'type', 'content']
 
 
 
+
+
+#lida com put, get e delele
 class JobSerializer(serializers.ModelSerializer):
 
     """
@@ -74,24 +77,24 @@ class JobSerializer(serializers.ModelSerializer):
         
         """
 
-        include_image = kwargs.pop('include_image', False)
+        include_image = kwargs.pop('include_image', True)
         super().__init__(*args, **kwargs)
-        
-        if not include_image:
+       
+        if  include_image == False:
             self.fields.pop('image', None)
 
 
+    #ocorre uma inconssitencia pois falta 
     def create(self, validated_data):
 
         """
         Cria um novo Job e, se fornecida, uma imagem associada.
        
         """
-
         image_data = validated_data.pop('image', None)
+        
         job = Job.objects.create(**validated_data)
         
-
         if image_data:
             Image.objects.create(job=job, **image_data)
         
@@ -122,6 +125,7 @@ class JobSerializer(serializers.ModelSerializer):
                 image_instance = instance.image 
                 image_instance.name = image_data.get('name', image_instance.name)
                 image_instance.type = image_data.get('type', image_instance.type)
+                image_instance.content = image_data.get('content', image_instance.content)
                 image_instance.save()
             else:
                 Image.objects.create(job=instance, **image_data)
