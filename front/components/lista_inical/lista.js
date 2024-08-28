@@ -39,24 +39,31 @@ export default function Lista({ jobs = [], setJobs }) {
   return (
     <>
       {jobs.map((job) => (
-        <div className={styles.container} key={job.id}>
-          <div>
-            <h1>{job.job_name}</h1>
+        <section className={styles.container} key={job.id}>
+          <header>
+            <h2>{job.job_name}</h2>
             <button onClick={() => handleHide(job.id, setOpenDescription)}>
               Descricao
             </button>
 
             {dispImage[job.id] ? (
-              <button onClick={() => handleHide(job.id, setOpenImage)}>
-                Incone imagem
-              </button>
+              <a
+                className={styles.disponivel}
+                onClick={() => handleHide(job.id, setOpenImage)}
+              >
+                <img src="/assets/disponivel.png" alt="imagem do job" />
+              </a>
             ) : (
-              <button>Imagem indisponivel</button>
+              <a className={styles.indisponivel}>
+                <img src="/assets/indisponivel.png" alt="imagem do job" />
+              </a>
             )}
+
             <button onClick={() => handleDelete(setJobs, jobs, job.id)}>
               Delete
             </button>
-          </div>
+          </header>
+
           {openDescription[job.id] && (
             <div>
               <p>{job.job_description}</p>{" "}
@@ -67,7 +74,7 @@ export default function Lista({ jobs = [], setJobs }) {
               <p>{job.image}</p>
             </div>
           )}
-        </div>
+        </section>
       ))}
     </>
   );
