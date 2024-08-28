@@ -142,7 +142,7 @@ def job_manager(request):
             elif all_param :
                 try:
                     job = Job.objects.all()
-                    serializer = JobSerializer(job, many=True, include_image=img_param)
+                    serializer = JobSerializer(job, many=True, include_image=img_param, inst_img=instance_image_param)
                 
                 except ValueError:
                     return Response({'detail': 'Invalid ID format'}, status=status.HTTP_400_BAD_REQUEST)
