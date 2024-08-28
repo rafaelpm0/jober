@@ -47,6 +47,7 @@ class JobSerializer(serializers.ModelSerializer):
         só é relevante quando se deseja remover a imagem associada ao Job. Caso o campo imagem seja enviado,
         junto, o delete surte o mesmo efeito.
 
+
     Meta:
     -----
     model : Job
@@ -59,30 +60,40 @@ class JobSerializer(serializers.ModelSerializer):
         - 'job_description': Descrição do Job.
         - 'image': Serializer da imagem associada (se aplicável).
         - 'del_image': Flag para remover a imagem associada (se aplicável).
+        - 'has_imagem': Verifica se jog especifico possui a instancia da imagem. Campo passado via parametro
     """
 
-    image = ImageSerializer(required=False) 
-    del_image = serializers.BooleanField(required=False)
+    image = ImageSerializer(required=False)  # Informacao da imagem
+    del_image = serializers.BooleanField(required=False) #Campo del imagem
+    has_image = serializers.SerializerMethodField()  # Campo dinâmico para verificar instancia da imagem
 
 
     class Meta:
         model = Job
-        fields = ["id", "job_name", "job_create_at", "job_description", "image", "del_image"]
+        fields = ["id", "job_name", "job_create_at", "job_description", "image", "del_image", "has_image"]
 
 
     def __init__(self, *args, **kwargs):
 
         """
-        Inicializa o serializer com a opção de incluir ou não o campo 'image'.
+        Inicializa o serializer com a opção de incluir ou não o campo 'image' e 'has_image'. 
         
         """
 
         include_image = kwargs.pop('include_image', True)
+        instance_of_image = kwargs.pop('inst_img', False)
+
         super().__init__(*args, **kwargs)
-       
+        
         if  include_image == False:
             self.fields.pop('image', None)
 
+        if instance_of_image == False:
+            self.fields.pop('has_image', None)
+
+    #pelo nome ele faz referencia ao campo has_image
+    def get_has_image(self, obj):
+        return hasattr(obj, 'image') and obj.image is not None
 
     #ocorre uma inconssitencia pois falta 
     def create(self, validated_data):

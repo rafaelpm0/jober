@@ -67,6 +67,7 @@ def job_manager(request):
           - 'id' (opcional): ID do Job específico para retornar.
           - 'all' (opcional, default='false'): Se 'true', retorna todos os Jobs.
           - 'include_image' (opcional, default='false'): Se 'true', inclui a imagem associada no retorno.
+          - 'inst_img' (opcional, default='false'): Se 'true', verifique a existencia da imagem associada no retorno.
 
         - Retorna:
 
@@ -79,7 +80,7 @@ def job_manager(request):
         - Parâmetros:
           - 'id': ID do Job a ser atualizado.
           - 'del_image' (opcional, default=False): Se 'true', a imagem associada ao Job será excluída. (No corpo da requisicao)
-          - Dados do Job no corpo da requisição.
+          - Dados do Job e Image no corpo da requisição.
         
         - Retorna:
           - 201 Created: Job criado com sucesso.
@@ -115,16 +116,20 @@ def job_manager(request):
     if  request.method == 'GET':
         
         try:
-            all_param = request.query_params.get('all', 'false').lower() == 'true'
-            img_param = request.query_params.get('include_image', 'false').lower() == 'true'
-            id_param = request.query_params.get('id')
-
+            #parametros do GET
+            all_param = request.query_params.get('all', 'false').lower() == 'true' #Buscar todos
+            img_param = request.query_params.get('include_image', 'false').lower() == 'true' #buscar imagem
+            id_param = request.query_params.get('id')  # pesquisa via id
+            instance_image_param = request.query_params.get('inst_img', 'false').lower() == 'true'   #verificar instancia de imagem
+            #Busca via ID
             if id_param:
-
+                
                 try:
                     id_param = int(id_param)
                     job = Job.objects.get(pk=id_param)
-                    serializer = JobSerializer(job, include_image=img_param)
+
+                    #Serializacao com os parametros de incluir e verificar instancia de imagem
+                    serializer = JobSerializer(job, include_image=img_param, inst_img=instance_image_param)
                     return Response(serializer.data)
                 
                 except ValueError:
@@ -133,6 +138,7 @@ def job_manager(request):
                 except Job.DoesNotExist:
                     return Response({'detail': 'Job not found'}, status=status.HTTP_404_NOT_FOUND)
             
+            #Busca todos
             elif all_param :
                 try:
                     job = Job.objects.all()
