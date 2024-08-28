@@ -1,0 +1,15 @@
+/*Estilizacao do botao em lista_inicial.css, temporario*/
+
+.container{
+    
+    background: #DDD;
+    border: 1px solid rgb(156, 90, 90);
+}
+
+.image{
+    width: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(34, 34, 158);
+    
+}
