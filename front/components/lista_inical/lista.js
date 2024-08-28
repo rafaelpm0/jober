@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import styles from "../../styles/lista_inicial/lista.module.css";
 import handleDelete from "../../api/del_job";
+import Imagem from "../Image/image";
 
 export default function Lista({ jobs = [], setJobs }) {
   //recebe o job id e a variavel que ira controlar o estado de aberto e fechado de cada um
   const [openDescription, setOpenDescription] = useState([]);
   const [dispImage, setDispImage] = useState([]);
   const [openImage, setOpenImage] = useState([]);
+  const [isSelected, setIsSelected] = useState(false);
 
   // inicia o estado fechado
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function Lista({ jobs = [], setJobs }) {
 
             {dispImage[job.id] ? (
               <a
-                className={styles.disponivel}
+                className={`${styles.disponivel} ${openImage[job.id] ? styles.checked : ''}`}
                 onClick={() => handleHide(job.id, setOpenImage)}
               >
                 <img src="/assets/disponivel.png" alt="imagem do job" />
@@ -71,7 +73,7 @@ export default function Lista({ jobs = [], setJobs }) {
           )}
           {openImage[job.id] && (
             <div className={styles.image}>
-              <p>{job.image}</p>
+              <Imagem id={job.id}/>
             </div>
           )}
         </section>

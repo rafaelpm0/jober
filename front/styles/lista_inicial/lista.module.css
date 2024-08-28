@@ -7,9 +7,29 @@
 }
 
 .image{
-    width: 50%;
-    width: 100px;
-    height: 100px;
-    background-color: rgb(34, 34, 158);
-    
+    width: auto;
+    height: auto;
+    background-color: rgba(34, 34, 158, 0.658);
+}
+
+.container header{
+    display: flex;
+}
+
+.disponivel,
+.indisponivel{
+    display: flex;
+    max-width: 60px;
+}
+
+.disponivel{
+    background-color: rgba(45, 167, 45, 0.63);
+}
+.indisponivel{
+    background-color: rgb(160, 160, 57);
+}
+
+
+.checked{
+    background: rgb(33, 33, 168);
 }

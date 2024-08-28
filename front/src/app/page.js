@@ -32,9 +32,9 @@ export default function Job() {
         <section>
           <button>Adicionar Job</button>
         </section>
-        <section>
+        <article>
           <Lista jobs={jobs} setJobs={setJobs}/>
-        </section>
+        </article>
       </main>
     </>
   );
