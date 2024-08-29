@@ -29,7 +29,17 @@
     background-color: rgb(160, 160, 57);
 }
 
-
 .checked{
     background: rgb(33, 33, 168);
 }
+
+
+.open img {
+    transform: rotateX(180deg); /* Rotaciona a imagem em 180 graus */
+    transition: transform 0.4s ease-in-out; /* Transição suave */
+  }
+  
+.close img {
+    transform: rotateX(0deg); /* Posição normal sem rotação */
+    transition: transform 0.4s ease-in-out; /* Transição suave */
+  }

@@ -11,7 +11,6 @@ export default function Lista({ jobs = [], setJobs }) {
   const [dispImage, setDispImage] = useState([]);
   const [openImage, setOpenImage] = useState([]);
 
-
   //monitora o componente pai quando houver delete
   useEffect(() => {
     jobs.map((job) => {
@@ -20,11 +19,10 @@ export default function Lista({ jobs = [], setJobs }) {
         [job.id]: job.has_image,
       }));
     });
-
   }, [jobs]);
 
   // inicia o estado fechado
-  useEffect(()=>{
+  useEffect(() => {
     const initialState = jobs.reduce((acc, job) => {
       acc[job.id] = false;
       return acc;
@@ -32,7 +30,7 @@ export default function Lista({ jobs = [], setJobs }) {
 
     setOpenImage(initialState);
     setOpenDescription(initialState);
-  },[])
+  }, []);
 
   // cuida da alteracao de estado
   const handleHide = (id, setObject) => {
@@ -44,17 +42,17 @@ export default function Lista({ jobs = [], setJobs }) {
 
   return (
     <>
+      <h1 className={styles.title}>Jobs:</h1>
       {jobs.map((job) => (
         <section className={styles.container} key={job.id}>
           <header>
             <h2>{job.job_name}</h2>
-            <button onClick={() => handleHide(job.id, setOpenDescription)}>
-              Descricao
-            </button>
 
             {dispImage[job.id] ? (
               <a
-                className={`${styles.disponivel} ${openImage[job.id] ? styles.checked : ''}`}
+                className={`${styles.disponivel} ${
+                  openImage[job.id] ? styles.checked : ""
+                }`}
                 onClick={() => handleHide(job.id, setOpenImage)}
               >
                 <img src="/assets/disponivel.png" alt="imagem do job" />
@@ -68,16 +66,31 @@ export default function Lista({ jobs = [], setJobs }) {
             <button onClick={() => handleDelete(setJobs, jobs, job.id)}>
               Delete
             </button>
+            <a
+              className={`${openDescription[job.id] ? `${styles.open}` : `${styles.close}`}`}
+              onClick={() => handleHide(job.id, setOpenDescription)}
+            >
+              <img
+              src="/assets/seta.png" alt="abre"
+              />
+
+            </a>
           </header>
 
           {openDescription[job.id] && (
-            <div>
-              <p>{job.job_description}</p>{" "}
-            </div>
+            <>
+              <div>
+                <p>Data de criação: {job.job_create_at}</p>
+              </div>
+              <div>
+                <h3>Descrição: </h3>
+                <p>{job.job_description}</p>
+              </div>
+            </>
           )}
           {openImage[job.id] && (
             <div className={styles.image}>
-              <Imagem id={job.id}/>
+              <Imagem id={job.id} />
             </div>
           )}
         </section>
