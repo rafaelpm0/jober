@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import fetchData from '../../api/get_no_image.js'
 
 
-
-
 //falta implementar
 const handleClick = () => {
   router.push("/adicionar"); // Altere para o caminho da página que você deseja redirecionar

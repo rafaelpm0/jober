@@ -10,10 +10,21 @@ export default function Lista({ jobs = [], setJobs }) {
   const [openDescription, setOpenDescription] = useState([]);
   const [dispImage, setDispImage] = useState([]);
   const [openImage, setOpenImage] = useState([]);
-  const [isSelected, setIsSelected] = useState(false);
+
+
+  //monitora o componente pai quando houver delete
+  useEffect(() => {
+    jobs.map((job) => {
+      setDispImage((prevState) => ({
+        ...prevState,
+        [job.id]: job.has_image,
+      }));
+    });
+
+  }, [jobs]);
 
   // inicia o estado fechado
-  useEffect(() => {
+  useEffect(()=>{
     const initialState = jobs.reduce((acc, job) => {
       acc[job.id] = false;
       return acc;
@@ -21,14 +32,7 @@ export default function Lista({ jobs = [], setJobs }) {
 
     setOpenImage(initialState);
     setOpenDescription(initialState);
-
-    jobs.map((job) => {
-      setDispImage((prevState) => ({
-        ...prevState,
-        [job.id]: job.has_image,
-      }));
-    });
-  }, [jobs]);
+  },[])
 
   // cuida da alteracao de estado
   const handleHide = (id, setObject) => {
