@@ -2,33 +2,35 @@
 
 import Image from "next/image";
 import Lista from "../../components/lista_inical/lista.js";
-import styles from "../../styles/page/page.module.css";
 import { useEffect, useState } from "react";
 import fetchData from "../../api/get_no_image.js";
-
-//falta implementar
-const handleClick = () => {
-  router.push("/adicionar"); // Altere para o caminho da página que você deseja redirecionar
-};
+import Adicionar from "../../components/adicionar/adicionar.js";
 
 export default function Job() {
+
   const [jobs, setJobs] = useState([]);
+
 
   // fetch dos dados iniciais para display
   useEffect(() => {
     fetchData(setJobs); // Chama a função para buscar os dados
   }, []);
 
+  useEffect(() => {
+    fetchData(setJobs); // Chama a função para buscar os dados
+  }, [post]);
+
   return (
     <>
-      <main className={styles.container}>
+      <main>
         <section>
-          <a className={styles.add_btn}>
-            <img src="/assets/add.png" alt="imagem do job" />
-          </a>
+          <Adicionar job={setPost}/>
         </section>
         <article>
           <Lista jobs={jobs} setJobs={setJobs} />
+        </article>
+        <article>
+
         </article>
       </main>
     </>
