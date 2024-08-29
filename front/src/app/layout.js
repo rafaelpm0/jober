@@ -5,7 +5,7 @@ import Header from "../../components/header/header"
 import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 
-import styles from "../../styles/container_global.module.css"
+import styles from "../../styles/global/container_global.module.css"
 
 
 
