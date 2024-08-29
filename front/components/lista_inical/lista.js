@@ -42,7 +42,7 @@ export default function Lista({ jobs = [], setJobs }) {
 
   return (
     <>
-      <h1 className={styles.title}>Jobs:</h1>
+      <h1 className={styles.title}>Tarefas:</h1>
       {jobs.map((job) => (
         <section className={styles.container} key={job.id}>
           <header>
@@ -63,17 +63,13 @@ export default function Lista({ jobs = [], setJobs }) {
               </a>
             )}
 
-            <button onClick={() => handleDelete(setJobs, jobs, job.id)}>
-              Delete
-            </button>
             <a
-              className={`${openDescription[job.id] ? `${styles.open}` : `${styles.close}`}`}
+              className={`${
+                openDescription[job.id] ? `${styles.open}` : `${styles.close}`
+              }`}
               onClick={() => handleHide(job.id, setOpenDescription)}
             >
-              <img
-              src="/assets/seta.png" alt="abre"
-              />
-
+              <img src="/assets/seta.png" alt="abre" />
             </a>
           </header>
 
@@ -81,6 +77,12 @@ export default function Lista({ jobs = [], setJobs }) {
             <>
               <div>
                 <p>Data de criação: {job.job_create_at}</p>
+                <a onClick={() => handleDelete(setJobs, jobs, job.id)}>
+                  <img src="/assets/trash.png" alt="trash" />
+                </a>
+                <a>
+                  <img src="/assets/edit.png" alt="trash" />
+                </a>
               </div>
               <div>
                 <h3>Descrição: </h3>
