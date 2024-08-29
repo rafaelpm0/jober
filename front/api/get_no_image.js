@@ -27,11 +27,7 @@
 export default async function fetchData(setJobs) {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/job/?all=true&inst_img=true",
-        {
-          cache: "no-store",
-        }
-      );
+        "http://127.0.0.1:8000/api/job/?all=true&inst_img=true");
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

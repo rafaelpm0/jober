@@ -163,7 +163,7 @@ def job_manager(request):
         
         if serializer.is_valid():
             job = serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -182,7 +182,7 @@ def job_manager(request):
             updated_job = Job.objects.get(pk=id)
        
         except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
 
         
         serializer = JobSerializer(updated_job, data=request.data)

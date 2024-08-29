@@ -1,0 +1,36 @@
+.add_btn{
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    right: 16px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+.container_form a{
+    
+    background-color: #000000c4;
+    
+}
+
+.open {
+    max-height: 300px;
+    opacity: 1;
+    transition: max-height 300ms ease-in-out, opacity 200ms ease-in-out;
+  }
+
+  
+.close {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 300ms ease-in-out, opacity 200ms ease-in-out;
+    opacity: 0;
+  }
+
+@media screen and (min-width: 1026px){
+    .add_btn{
+        top: 24px;
+    }
+    
+}

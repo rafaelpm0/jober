@@ -13,18 +13,14 @@ export default function Job() {
 
   // fetch dos dados iniciais para display
   useEffect(() => {
-    fetchData(setJobs); // Chama a função para buscar os dados
+    fetchData(setJobs); 
   }, []);
-
-  useEffect(() => {
-    fetchData(setJobs); // Chama a função para buscar os dados
-  }, [post]);
 
   return (
     <>
       <main>
         <section>
-          <Adicionar job={setPost}/>
+          <Adicionar job={setJobs}/>
         </section>
         <article>
           <Lista jobs={jobs} setJobs={setJobs} />
