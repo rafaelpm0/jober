@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={nunito_sans.className}>
         <Header/>
-        <div className={styles.container}>
+        <div className={styles.container_content}>
         {children}
         </div>
         

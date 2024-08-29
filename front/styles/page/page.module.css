@@ -17,4 +17,23 @@
 .container button:hover{
     background-color: #353535;
     color: var(--cinza-claro);
+
+}
+
+.add_btn{
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    right: 16px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+@media screen and (min-width: 1026px){
+    
+    .add_btn{
+        top: 24px;
+    }
+    
 }

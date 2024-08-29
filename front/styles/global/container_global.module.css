@@ -1,11 +1,15 @@
-.container{
-    max-width: 1292px;
-    padding: 24px 16px 40px;
+
+.container_content{
+    padding: 24px 16px 80px;
+    margin: 0 auto;
+    max-width: 1400px;
+
   }
   
   @media screen and (min-width: 1026px) {
-    .container{
-        margin-top: 40px;
+    .container_content{
+      margin-top: 40px;
+      position: relative;
     }
   }
   

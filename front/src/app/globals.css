@@ -89,6 +89,7 @@
 html,
 body {
   min-height: 100vh;
+  height: calc(100% - 60px);
   overflow-x: hidden;
   color: rgb(var(--foreground-rgb));
   background-color: var(--cinza-claro);
