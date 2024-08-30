@@ -20,7 +20,7 @@ export default function Job() {
     <>
       <main>
         <section>
-          <Adicionar job={setJobs}/>
+          <Adicionar setJobs={setJobs}/>
         </section>
         <article>
           <Lista jobs={jobs} setJobs={setJobs} />

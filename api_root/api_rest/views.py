@@ -159,7 +159,7 @@ def job_manager(request):
     if request.method == "POST":
     
         news_job = request.data
-        serializer = JobSerializer(data=news_job, include_image=True)
+        serializer = JobSerializer(data=news_job, include_image=True,  inst_img=True)
         
         if serializer.is_valid():
             job = serializer.save()

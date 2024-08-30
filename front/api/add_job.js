@@ -1,6 +1,5 @@
 export default async function handleSubmit(e, include, setStatus){
-  console.log(include)
-  console.log(e)
+
     e.preventDefault(); 
     try {
       
@@ -18,7 +17,7 @@ export default async function handleSubmit(e, include, setStatus){
       }
 
       const result = await response.json();
-      setStatus(`Atualizado com sucesso: ${result.message}`);
+      return result
     } catch (error) {
       setStatus(`Erro: ${error.message}`);
     }      

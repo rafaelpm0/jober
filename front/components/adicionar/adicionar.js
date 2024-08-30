@@ -4,9 +4,8 @@ import handleSubmit from "../../api/add_job";
 
 // utiliza o primeiro componente relative como referencia... cuidar com isso
 
-export default function Adicionar({ job }) {
+export default function Adicionar({ setJobs }) {
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState();
   const [include, setInclude] = useState([]);
 
   const handlOpen = () => {
@@ -42,8 +41,12 @@ export default function Adicionar({ job }) {
     }
   };
 
-  const handleForm = (e) => {
-    handleSubmit(e, include, setInclude)
+  const handlSetJobs = (result) => {
+    setJobs((prevState) => [...prevState, result]);
+  };
+  async function handleForm(e) {
+    const result = await handleSubmit(e, include, setInclude)
+    handlSetJobs(result)
     setOpen(!open);
   };
 
@@ -81,7 +84,7 @@ export default function Adicionar({ job }) {
             <input
               type="file"
               name="image"
-              onChange={handleChangeImage}
+              onChange={(e)=>handleChangeImage(e)}
               id="image"
             />
 
