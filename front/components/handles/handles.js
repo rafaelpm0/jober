@@ -82,3 +82,44 @@ export function handleChangeImage(event, setData) {
         reader.readAsDataURL(file);
     }
 }
+
+/**
+ * Atualiza um objeto na lista com base na ID fornecida. Substitui o objeto existente na lista
+ * se a ID corresponder. Se o objeto com a ID fornecida não estiver presente na lista, adiciona o objeto.
+ * 
+ * @param {Object} result - O objeto a ser atualizado ou adicionado. Deve conter a propriedade `id` 
+ *                           para localizar o item na lista e pode incluir qualquer outro dado necessário
+ *                           para substituir ou adicionar ao objeto existente.
+ * @param {Function} setData - Função de atualização de estado fornecida pelo hook `useState`. 
+ *                             Esta função é utilizada para atualizar o estado da lista de objetos.
+ * 
+ */
+export function handleChangeDelete(result, setData) {
+    setData((prevState) => {
+        const index = prevState.findIndex((data) => data.id === result.id);
+
+        if (index !== -1) {
+            const updated = [...prevState];
+            updated[index] = result;
+            return updated;
+        } else {
+            return [...prevState, result];
+        }
+    });
+}
+
+/**
+ * Atualiza o valor booleano de um campo específico em um objeto com base na ID fornecida.
+ * 
+ * @param {string | number} id - A ID do campo a ser atualizado no objeto. Deve corresponder a uma chave existente no objeto de estado.
+ * @param {Function} setObject - Função de atualização de estado fornecida pelo hook `useState`. É usada para atualizar o estado do objeto.
+ * 
+ * 
+ * @returns {void} - A função não retorna nenhum valor. Ela apenas atualiza o estado.
+ */
+export function handleBoleanoId(id, setObject) {
+    setObject((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+}

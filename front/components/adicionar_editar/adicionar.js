@@ -5,7 +5,7 @@ import Modal from "./modal";
 import {
   handlBoelano,
   handleChangeObjectEvent,
-  handleChangeObject,
+  handleChangeDelete,
   handleChangeImage,
 } from "../handles/handles";
 
@@ -16,7 +16,7 @@ export default function Adicionar({ setJobs }) {
   async function handleForm(e) {
     e.preventDefault();
     const result = await handleSubmit(e, include, setInclude);
-    handleChangeObject(result, setJobs);
+    handleChangeDelete(result, setJobs);
     setOpen(false);
   }
 
