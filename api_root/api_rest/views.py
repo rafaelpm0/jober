@@ -156,7 +156,7 @@ def job_manager(request):
                 
 
             sorted_data = sorted(serializer.data, key=lambda x: x['id'])
-            return Response(sorted_data) #medida temporaria deorndeção
+            return Response(sorted_data) #medida temporaria
 
         except:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
@@ -179,6 +179,7 @@ def job_manager(request):
     if request.method == "PUT":
 
         try:
+            print(request.data['id'])
             id = request.data['id']
         
         except KeyError:
@@ -202,15 +203,20 @@ def job_manager(request):
     if request.method == "DELETE":
 
         try:
-            
-            try:
-                delete_id = request.data['id']
-            except:
-                return Response(status=status.HTTP_400_BAD_REQUEST)    
-            
-            job_to_delete = Job.objects.get(pk=delete_id)    
-            job_to_delete.delete() 
-            return Response(status=status.HTTP_202_ACCEPTED)
-        
-        except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)    
+
+                delete_id = request.data.get('id')
+                if delete_id is None:
+                    return Response({"detail": "ID não fornecido."}, status=status.HTTP_400_BAD_REQUEST)
+
+                job_to_delete = Job.objects.get(pk=delete_id)
+                serializer = JobSerializer(job_to_delete)
+                job_to_delete.delete()
+
+
+                return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+        except Job.DoesNotExist:
+            return Response({"detail": "Job não encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

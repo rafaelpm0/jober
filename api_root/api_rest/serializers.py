@@ -91,6 +91,8 @@ class JobSerializer(serializers.ModelSerializer):
     #pelo nome ele faz referencia ao campo has_image
     def get_has_image(self, obj):
         return hasattr(obj, 'image') and obj.image is not None
+    def put_has_image(self, obj):
+        return hasattr(obj, 'image') and obj.image is not None
 
     #ocorre uma inconssitencia pois falta 
     def create(self, validated_data):
