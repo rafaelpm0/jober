@@ -9,9 +9,7 @@ export default function Editar({job, setJobs }) {
 
 
   useEffect(()=>{
-    
     setInclude(job)
-
   },[])
 
   const handlOpen = () => {
@@ -49,8 +47,11 @@ export default function Editar({job, setJobs }) {
 
   async function handleForm(e) {
     e.preventDefault();
+    const obj_inclusao = include
+    delete obj_inclusao['job_create_at']
+    delete obj_inclusao['has_image']
     const result = await handleSubmit(e, include, setInclude);
-    console.log(result)
+    handlSetJobs(result)
     setOpen(false);
   }
 
