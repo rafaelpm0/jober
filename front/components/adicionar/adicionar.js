@@ -1,8 +1,7 @@
 import styles from "../../styles/adicionar/adicionar.module.css";
 import { useState } from "react";
 import handleSubmit from "../../api/add_job";
-
-// utiliza o primeiro componente relative como referencia... cuidar com isso
+import Modal from "./modal";
 
 export default function Adicionar({ setJobs }) {
   const [open, setOpen] = useState(false);
@@ -44,54 +43,63 @@ export default function Adicionar({ setJobs }) {
   const handlSetJobs = (result) => {
     setJobs((prevState) => [...prevState, result]);
   };
+
   async function handleForm(e) {
-    const result = await handleSubmit(e, include, setInclude)
-    handlSetJobs(result)
-    setOpen(!open);
-  };
+    e.preventDefault();
+    const result = await handleSubmit(e, include, setInclude);
+    handlSetJobs(result);
+    setOpen(false);
+  }
 
   return (
     <>
-      <a className={styles.add_btn} onClick={() => handlOpen()}>
+      <a className={styles.add_btn} onClick={handlOpen}>
         <img src="/assets/add.png" alt="imagem do job" />
       </a>
-      <div
-        className={`${styles.container_form} ${
-          open ? `${styles.open}` : `${styles.close}`
-        }`}
-      >
-        <a>
-          <form onSubmit={(e) => {handleForm(e)}}>
-            <label htmlFor="job_name">Nome:</label>
-            <input
-              type="text"
-              placeholder="Digite aqui"
-              value={include.job_name || ""}
-              onChange={handleChange}
-              name="job_name"
-              id="job_name"
-            />
 
-            <label htmlFor="job_description">Descrição:</label>
-            <textarea
-              placeholder="Digite aqui"
-              value={include.job_description || ""}
-              onChange={handleChange}
-              name="job_description"
-              id="job_description"
-            />
+      {open && (
+        <Modal>
+          <div
+            className={`${styles.container_form} ${
+              open ? `${styles.open}` : `${styles.close}`
+            }`}
+          >
+            <a className={styles.modal} onClick={()=>handlOpen()}>
+              <form onSubmit={handleForm}  onClick={(e) => e.stopPropagation()}>
+                <label htmlFor="job_name">Nome:</label>
+                <input
+                  type="text"
+                  placeholder="Digite aqui"
+                  value={include.job_name || ""}
+                  onChange={handleChange}
+                  name="job_name"
+                  id="job_name"
+                  required
+                />
 
-            <input
-              type="file"
-              name="image"
-              onChange={(e)=>handleChangeImage(e)}
-              id="image"
-            />
+                <label htmlFor="job_description">Descrição:</label>
+                <textarea
+                  placeholder="Digite aqui"
+                  value={include.job_description || ""}
+                  onChange={handleChange}
+                  name="job_description"
+                  id="job_description"
+                  required
+                />
 
-            <button type="submit">Enviar</button>
-          </form>
-        </a>
-      </div>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={handleChangeImage}
+                  id="image"
+                />
+
+                <button type="submit">Enviar</button>
+              </form>
+            </a>
+          </div>
+        </Modal>
+      )}
     </>
   );
 }
