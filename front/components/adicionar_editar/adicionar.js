@@ -2,58 +2,32 @@ import styles from "../../styles/adicionar/adicionar.module.css";
 import { useState } from "react";
 import handleSubmit from "../../api/add_job";
 import Modal from "./modal";
+import {
+  handlBoelano,
+  handleChangeObjectEvent,
+  handleChangeObject,
+  handleChangeImage,
+} from "../handles/handles";
 
 export default function Adicionar({ setJobs }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
 
-  const handlOpen = () => {
-    setOpen(!open);
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setInclude((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const handleChangeImage = (event) => {
-    const { files } = event.target;
-
-    if (files.length > 0) {
-      const file = files[0];
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        const base64Content = reader.result.split(",")[1]; // Extrai o conteúdo Base64
-        const fileName = file.name; // Obtém o nome do arquivo
-        const fileType = file.type; // Obtém o tipo MIME do arquivo
-
-        const image = {
-          name: fileName,
-          type: fileType,
-          content: base64Content,
-        };
-        setInclude((prevState) => ({ ...prevState, image: image }));
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handlSetJobs = (result) => {
-    setJobs((prevState) => [...prevState, result]);
-  };
-
   async function handleForm(e) {
     e.preventDefault();
     const result = await handleSubmit(e, include, setInclude);
-    handlSetJobs(result);
+    handleChangeObject(result, setJobs);
     setOpen(false);
   }
 
   return (
     <>
-      <a className={styles.add_btn} onClick={handlOpen}>
+      <a
+        className={styles.add_btn}
+        onClick={() => {
+          handlBoelano(open, setOpen);
+        }}
+      >
         <img src="/assets/add.png" alt="imagem do job" />
       </a>
 
@@ -64,14 +38,19 @@ export default function Adicionar({ setJobs }) {
               open ? `${styles.open}` : `${styles.close}`
             }`}
           >
-            <a className={styles.modal} onClick={()=>handlOpen()}>
-              <form onSubmit={handleForm}  onClick={(e) => e.stopPropagation()}>
+            <a
+              className={styles.modal}
+              onClick={() => handlBoelano(open, setOpen)}
+            >
+              <form onSubmit={handleForm} onClick={(e) => e.stopPropagation()}>
                 <label htmlFor="job_name">Nome:</label>
                 <input
                   type="text"
                   placeholder="Digite aqui"
                   value={include.job_name || ""}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleChangeObjectEvent(event, setInclude)
+                  }
                   name="job_name"
                   id="job_name"
                   required
@@ -81,7 +60,9 @@ export default function Adicionar({ setJobs }) {
                 <textarea
                   placeholder="Digite aqui"
                   value={include.job_description || ""}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleChangeObjectEvent(event, setInclude)
+                  }
                   name="job_description"
                   id="job_description"
                   required
@@ -90,7 +71,7 @@ export default function Adicionar({ setJobs }) {
                 <input
                   type="file"
                   name="image"
-                  onChange={handleChangeImage}
+                  onChange={(event)=>{handleChangeImage(event, setInclude)}}
                   id="image"
                 />
 
