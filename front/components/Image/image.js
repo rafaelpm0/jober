@@ -6,7 +6,6 @@ export default function Imagem({ id }) {
   const [image, setImage] = useState('');
 
   useEffect(() => {
-    console.log(id)
     getImage(setImage, id);
   }, []);
 

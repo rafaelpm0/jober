@@ -46,6 +46,14 @@
     opacity: 0;
   }
 
+
+.delet{
+    background-color: red;
+}
+.not_delet{
+    background-color: bisque;
+}
+
 @media screen and (min-width: 1026px){
     .add_btn{
         top: 24px;

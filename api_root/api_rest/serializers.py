@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from collections import OrderedDict
 
 from .models import Job, Image
 
@@ -26,10 +27,6 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ['name', 'type', 'content']
-
-
-
-
 
 #lida com put, get e delele
 class JobSerializer(serializers.ModelSerializer):
@@ -89,10 +86,12 @@ class JobSerializer(serializers.ModelSerializer):
             self.fields.pop('image', None)
 
         if instance_of_image == False:
-            self.fields.pop('has_image', None)
+            self.fields.pop('has_image', None)    
 
     #pelo nome ele faz referencia ao campo has_image
     def get_has_image(self, obj):
+        return hasattr(obj, 'image') and obj.image is not None
+    def put_has_image(self, obj):
         return hasattr(obj, 'image') and obj.image is not None
 
     #ocorre uma inconssitencia pois falta 

@@ -3,16 +3,14 @@ import { useEffect, useState } from "react";
 import handleSubmit from "../../api/put_job";
 import Modal from "./modal";
 
-export default function Editar({job, setJobs }) {
+export default function Editar({ job, setJobs }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
+  const [delet, setDelet] = useState(false);
 
-
-  useEffect(()=>{
-    
-    setInclude(job)
-
-  },[])
+  useEffect(() => {
+    setInclude(job);
+  }, []);
 
   const handlOpen = () => {
     setOpen(!open);
@@ -22,6 +20,10 @@ export default function Editar({job, setJobs }) {
     const { name, value } = event.target;
     setInclude((prevState) => ({ ...prevState, [name]: value }));
   };
+
+  const handleDelete =() => {
+    setDelet(!delet)
+};
 
   const handleChangeImage = (event) => {
     const { files } = event.target;
@@ -49,16 +51,21 @@ export default function Editar({job, setJobs }) {
 
   async function handleForm(e) {
     e.preventDefault();
-    const result = await handleSubmit(e, include, setInclude);
-    console.log(result)
+    const obj_inclusao = include;
+    
+    delete obj_inclusao["job_create_at"];
+    delete obj_inclusao["has_image"];
+    console.log(obj_inclusao, delet)
+    const result = await handleSubmit(e, obj_inclusao, delet);
+    handlSetJobs(result);
     setOpen(false);
   }
 
   const handlSetJobs = (result) => {
     setJobs((prevState) => {
       // Verifica se o job já existe na lista
-      const jobIndex = prevState.findIndex(job => job.id === result.id);
-  
+      const jobIndex = prevState.findIndex((job) => job.id === result.id);
+
       if (jobIndex !== -1) {
         // Se o job existe, cria uma nova lista com o job atualizado
         const updatedJobs = [...prevState];
@@ -84,8 +91,8 @@ export default function Editar({job, setJobs }) {
               open ? `${styles.open}` : `${styles.close}`
             }`}
           >
-            <a className={styles.modal} onClick={()=>handlOpen()}>
-              <form onSubmit={handleForm}  onClick={(e) => e.stopPropagation()}>
+            <a className={styles.modal} onClick={() => handlOpen()}>
+              <form onSubmit={handleForm} onClick={(e) => e.stopPropagation()}>
                 <label htmlFor="job_name">Nome:</label>
                 <input
                   type="text"
@@ -111,7 +118,7 @@ export default function Editar({job, setJobs }) {
                   onChange={handleChangeImage}
                   id="image"
                 />
-
+                <button type="button"  onClick={()=>handleDelete()} className={delet ? `${styles.delet}` : `${`${styles.not_delet}`}`}>Deletar</button>
                 <button type="submit">Enviar</button>
               </form>
             </a>

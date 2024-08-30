@@ -12,8 +12,6 @@ export default function Lista({ jobs = [], setJobs }) {
   const [openDescription, setOpenDescription] = useState([]);
   const [dispImage, setDispImage] = useState([]);
   const [openImage, setOpenImage] = useState([]);
-  const trashIconRef = useRef(null);
-
 
   //monitora o componente pai quando houver delete
   useEffect(() => {
