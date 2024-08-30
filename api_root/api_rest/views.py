@@ -179,7 +179,9 @@ def job_manager(request):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         try:
+            
             updated_job = Job.objects.get(pk=id)
+            print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaqui")
        
         except:
             return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
@@ -189,7 +191,7 @@ def job_manager(request):
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_202_ACCEPTED)
-
+        
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     # delete 

@@ -5,6 +5,7 @@ import styles from "../../styles/lista_inicial/lista.module.css";
 import handleDelete from "../../api/del_job";
 import Imagem from "../Image/image";
 import { useRef } from 'react';
+import Editar from "../adicionar_editar/editar";
 
 export default function Lista({ jobs = [], setJobs }) {
   //recebe o job id e a variavel que ira controlar o estado de aberto e fechado de cada um
@@ -90,9 +91,7 @@ export default function Lista({ jobs = [], setJobs }) {
                 >
                   <img src="/assets/trash.png" alt="trash" />
                 </a>
-                <a id="icon_edit">
-                  <img src="/assets/edit.png" alt="trash" />
-                </a>
+                <Editar job={job} setJobs={setJobs}/>
               </div>
               <div className={styles.description}>
                 <h3>Descrição: </h3>

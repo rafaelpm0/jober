@@ -4,7 +4,7 @@ import Image from "next/image";
 import Lista from "../../components/lista_inical/lista.js";
 import { useEffect, useState } from "react";
 import fetchData from "../../api/get_no_image.js";
-import Adicionar from "../../components/adicionar/adicionar.js";
+import Adicionar from "../../components/adicionar_editar/adicionar.js";
 
 export default function Job() {
 
