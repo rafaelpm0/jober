@@ -153,7 +153,7 @@ def job_manager(request):
             return Response(serializer.data)
 
         except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)  
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
 
     #Post
     if request.method == "POST":
@@ -166,7 +166,7 @@ def job_manager(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
 
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
     # atualicao do job
@@ -179,20 +179,17 @@ def job_manager(request):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            
-            updated_job = Job.objects.get(pk=id)
-            print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaqui")
-       
+            updated_job = Job.objects.get(pk=id)  
         except:
-            return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+            return Response({"detail": "Job not found."}, status=status.HTTP_404_NOT_FOUND)
+    
+        serializer = JobSerializer(updated_job, data=request.data) #a resposta sempre tem de ser serializada antes de ser devolvida
 
-        
-        serializer = JobSerializer(updated_job, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(status=status.HTTP_202_ACCEPTED)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # delete 
     

@@ -9,7 +9,9 @@ export default function Editar({job, setJobs }) {
 
 
   useEffect(()=>{
+    
     setInclude(job)
+
   },[])
 
   const handlOpen = () => {
