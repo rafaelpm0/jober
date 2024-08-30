@@ -7,6 +7,8 @@ from rest_framework import status
 from .models import Job, Image
 from .serializers import JobSerializer, ImageSerializer
 
+from collections import OrderedDict #medida temporaria
+
 # Create your views here.
 
 # busca da imagem
@@ -150,7 +152,11 @@ def job_manager(request):
                 except Job.DoesNotExist:
                     return Response({'detail': 'Job not found'}, status=status.HTTP_404_NOT_FOUND)
 
-            return Response(serializer.data)
+            
+                
+
+            sorted_data = sorted(serializer.data, key=lambda x: x['id'])
+            return Response(sorted_data) #medida temporaria deorndeção
 
         except:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
@@ -175,15 +181,15 @@ def job_manager(request):
         try:
             id = request.data['id']
         
-        except:
+        except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         try:
             updated_job = Job.objects.get(pk=id)  
-        except:
+        except Job.DoesNotExist:
             return Response({"detail": "Job not found."}, status=status.HTTP_404_NOT_FOUND)
-    
-        serializer = JobSerializer(updated_job, data=request.data) #a resposta sempre tem de ser serializada antes de ser devolvida
+
+        serializer = JobSerializer(updated_job, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
