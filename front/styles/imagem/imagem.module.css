@@ -1,0 +1,12 @@
+.content_image{
+    width: auto;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #3333331f;
+    margin-bottom: 8px;
+}
+.content_image{
+    width: auto;
+    height: auto;
+}

@@ -1,15 +1,34 @@
+"use client";
+
 import Image from "next/image";
-import Header from "../../components/header"
+import Lista from "../../components/lista_inical/lista.js";
+import { useEffect, useState } from "react";
+import fetchData from "../../api/get_no_image.js";
+import Adicionar from "../../components/adicionar_editar/adicionar.js";
+
+export default function Job() {
+
+  const [jobs, setJobs] = useState([]);
 
 
-export default function Home({children}) {
+  // fetch dos dados iniciais para display
+  useEffect(() => {
+    fetchData(setJobs); 
+  }, []);
+
   return (
     <>
-    <Header/>
-    <main>
-      {children}
-    </main>
-    </>
+      <main>
+        <section>
+          <Adicionar setJobs={setJobs}/>
+        </section>
+        <article>
+          <Lista jobs={jobs} setJobs={setJobs} />
+        </article>
+        <article>
 
+        </article>
+      </main>
+    </>
   );
 }

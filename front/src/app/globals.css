@@ -14,7 +14,7 @@
   --cinza-escuro-forte: #333333
   --cinza-escuro:#5e5e5e;
   --cinza-medio: #888888;
-  --cinza-claro: #ccccccc0;
+  --cinza-claro: #cccccc;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -89,6 +89,7 @@
 html,
 body {
   min-height: 100vh;
+  height: calc(100% - 60px);
   overflow-x: hidden;
   color: rgb(var(--foreground-rgb));
   background-color: var(--cinza-claro);
@@ -100,10 +101,13 @@ a {
   text-decoration: none;
 }
 
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+
+
 }
     
 
