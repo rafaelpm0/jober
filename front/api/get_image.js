@@ -16,7 +16,7 @@
 export default async function getImage(setImage, id) {
     try {
       
-      const response = await fetch(`http://127.0.0.1:8000/api/img/?job_id=${id}`);  //deixei strore em cache, evitar recarregamento, testar quando altera image
+      const response = await fetch(`http://127.0.0.1:8000/api/img/?job_id=${id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

@@ -179,7 +179,7 @@ def job_manager(request):
     if request.method == "PUT":
 
         try:
-            print(request.data['id'])
+
             id = request.data['id']
         
         except KeyError:

@@ -4,24 +4,15 @@ import { useEffect, useState } from "react";
 import styles from "../../styles/lista_inicial/lista.module.css";
 import handleDelete from "../../api/del_job";
 import Imagem from "../Image/image";
-import { useRef } from 'react';
+import { handleBoleanoId } from "../handles/handles";
 import Editar from "../adicionar_editar/editar";
 
 export default function Lista({ jobs = [], setJobs }) {
+  
   //recebe o job id e a variavel que ira controlar o estado de aberto e fechado de cada um
   const [openDescription, setOpenDescription] = useState([]);
   const [dispImage, setDispImage] = useState([]);
   const [openImage, setOpenImage] = useState([]);
-
-  //monitora o componente pai quando houver delete
-  useEffect(() => {
-    jobs.map((job) => {
-      setDispImage((prevState) => ({
-        ...prevState,
-        [job.id]: job.has_image,
-      }));
-    });
-  }, [jobs]);
 
   // inicia o estado fechado
   useEffect(() => {
@@ -34,13 +25,16 @@ export default function Lista({ jobs = [], setJobs }) {
     setOpenDescription(initialState);
   }, []);
 
-  // cuida da alteracao de estado
-  const handleHide = (id, setObject) => {
-    setObject((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
-  };
+  //monitora o componente pai quando houver delete
+  useEffect(() => {
+    jobs.map((job) => {
+      setDispImage((prevState) => ({
+        ...prevState,
+        [job.id]: job.has_image,
+      }));
+    });
+  }, [jobs]);
+
 
   return (
     <>
@@ -56,7 +50,7 @@ export default function Lista({ jobs = [], setJobs }) {
                   className={`${styles.disponivel} ${
                     openImage[job.id] ? styles.checked : ""
                   }`}
-                  onClick={() => handleHide(job.id, setOpenImage)}
+                  onClick={() => handleBoleanoId(job.id, setOpenImage)}
                 >
                   <img src="/assets/disponivel.png" alt="imagem do job" />
                 </a>
@@ -70,7 +64,7 @@ export default function Lista({ jobs = [], setJobs }) {
                 className={`${styles.accordion} ${
                   openDescription[job.id] ? `${styles.open}` : `${styles.close}`
                 }`}
-                onClick={() => handleHide(job.id, setOpenDescription)}
+                onClick={() => handleBoleanoId(job.id, setOpenDescription)}
               >
                 <img src="/assets/seta.png" alt="abre" />
               </a>
@@ -89,7 +83,7 @@ export default function Lista({ jobs = [], setJobs }) {
                 >
                   <img src="/assets/trash.png" alt="trash" />
                 </a>
-                <Editar job={job} setJobs={setJobs}/>
+                <Editar job={job} setJobs={setJobs} />
               </div>
               <div className={styles.description}>
                 <h3>Descrição: </h3>
