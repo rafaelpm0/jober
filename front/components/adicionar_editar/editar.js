@@ -2,12 +2,8 @@ import styles from "../../styles/adicionar/adicionar.module.css";
 import { useEffect, useState } from "react";
 import handleSubmit from "../../api/put_job";
 import Modal from "./modal";
-import {
-  handlBoelano,
-  handleChangeImage,
-  handleChangeObjectEvent,
-  handleChangeDelete,
-} from "../handles/handles";
+import { handlBoelano, handleChangeDelete } from "../handles/handles";
+import FormPut from "./form_put";
 
 export default function Editar({ job, setJobs }) {
   const [open, setOpen] = useState(false);
@@ -51,49 +47,13 @@ export default function Editar({ job, setJobs }) {
               className={styles.modal}
               onClick={() => handlBoelano(open, setOpen)}
             >
-              <form onSubmit={handleForm} onClick={(e) => e.stopPropagation()}>
-                <label htmlFor="job_name">Nome:</label>
-                <input
-                  type="text"
-                  placeholder="Digite aqui"
-                  value={include.job_name || ""}
-                  onChange={(event) =>
-                    handleChangeObjectEvent(event, setInclude)
-                  }
-                  name="job_name"
-                  id="job_name"
-                />
-
-                <label htmlFor="job_description">Descrição:</label>
-                <textarea
-                  placeholder="Digite aqui"
-                  value={include.job_description || ""}
-                  onChange={(event) =>
-                    handleChangeObjectEvent(event, setInclude)
-                  }
-                  name="job_description"
-                  id="job_description"
-                />
-
-                <input
-                  type="file"
-                  name="image"
-                  onChange={(event) => {
-                    handleChangeImage(event, setInclude);
-                  }}
-                  id="image"
-                />
-                <button
-                  type="button"
-                  onClick={() => handlBoelano(delet, setDelet)}
-                  className={
-                    delet ? `${styles.delet}` : `${`${styles.not_delet}`}`
-                  }
-                >
-                  Deletar
-                </button>
-                <button type="submit">Enviar</button>
-              </form>
+              <FormPut
+                handleForm={handleForm}
+                include={include}
+                setInclude={setInclude}
+                delet={delet}
+                setDelet={setDelet}
+              />
             </a>
           </div>
         </Modal>
