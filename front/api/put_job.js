@@ -20,6 +20,13 @@ export default async function handleSubmit(e, job, del_image=false, setMessage) 
     }
     
     const result = await response.json();
+    console.log(del_image, result.image == null)
+    if ((del_image) || (result.image == null)){
+      result['has_image'] = false;
+    }else{
+      result['has_image'] = true
+    }
+
     setMessage(["Tarefa editada", "success"])
 
     return result;
