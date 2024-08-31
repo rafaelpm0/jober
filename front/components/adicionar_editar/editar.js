@@ -1,10 +1,9 @@
-import styles from "../../styles/adicionar/adicionar.module.css";
+import styles from "../../styles/adicionar_editar/adicionar_editar.module.css";
 import { useEffect, useState } from "react";
 import handleSubmit from "../../api/put_job";
 import Modal from "../Modal/modal";
 import { handlBoelano, handleChangeDelete } from "../handles/handles";
 import FormPut from "./form_put";
-import Message from "../utilitarios/message";
 
 export default function Editar({ job, setJobs, setMessage }) {
   const [open, setOpen] = useState(false);
