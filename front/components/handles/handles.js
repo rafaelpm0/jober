@@ -95,18 +95,25 @@ export function handleChangeImage(event, setData) {
  * 
  */
 export function handleChangeDelete(result, setData) {
-    setData((prevState) => {
+    try {
+      setData((prevState) => {
         const index = prevState.findIndex((data) => data.id === result.id);
-
+  
         if (index !== -1) {
-            const updated = [...prevState];
-            updated[index] = result;
-            return updated;
+          // Atualiza o objeto existente
+          const updated = [...prevState];
+          updated[index] = result;
+          return updated;
         } else {
-            return [...prevState, result];
+          // Adiciona um novo objeto
+          return [...prevState, result];
         }
-    });
-}
+      });
+    } catch (e) {
+      console.error("Erro ao atualizar o estado:", e);
+    }
+  }
+  
 
 /**
  * Atualiza o valor booleano de um campo específico em um objeto com base na ID fornecida.

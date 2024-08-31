@@ -10,7 +10,7 @@
  * 
  * @throws {Error} Se ocorrer um erro durante a requisição ou processamento.
  */
-export default async function handleDelete(setJobs, jobs, id) {
+export default async function handleDelete(setJobs, jobs, id, setMessage) {
   try {
     const response = await fetch(`http://127.0.0.1:8000/api/job/`, {
       method: "DELETE",
@@ -23,13 +23,12 @@ export default async function handleDelete(setJobs, jobs, id) {
     if (response.ok) {
       // Atualiza o estado removendo o job excluído
       const updatedJobs = jobs.filter(item => item.id !== id);
-      console.log(updatedJobs); // Log para verificar o resultado
       setJobs(updatedJobs);
-      // Adicionar feedback de sucesso ao usuário aqui
+      setMessage(["Deletado com sucesso", "success"])
     } else {
-      // Adicionar feedback de erro ao usuário aqui
+      setMessage(["Erro de comunicação", "error"])
     }
   } catch (err) {
-    // Adicionar feedback de erro de conexão aqui
+    setMessage(["Erro de comunicação", "error"])
   }
 }

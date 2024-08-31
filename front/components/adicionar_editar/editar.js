@@ -1,11 +1,12 @@
 import styles from "../../styles/adicionar/adicionar.module.css";
 import { useEffect, useState } from "react";
 import handleSubmit from "../../api/put_job";
-import Modal from "./modal";
+import Modal from "../Modal/modal";
 import { handlBoelano, handleChangeDelete } from "../handles/handles";
 import FormPut from "./form_put";
+import Message from "../utilitarios/message";
 
-export default function Editar({ job, setJobs }) {
+export default function Editar({ job, setJobs, setMessage }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
   const [delet, setDelet] = useState(false);
@@ -21,7 +22,7 @@ export default function Editar({ job, setJobs }) {
     delete obj_inclusao["job_create_at"];
     delete obj_inclusao["has_image"];
 
-    const result = await handleSubmit(e, obj_inclusao, delet);
+    const result = await handleSubmit(e, obj_inclusao, delet, setMessage);
     handleChangeDelete(result, setJobs);
     setOpen(false);
   }
@@ -35,7 +36,6 @@ export default function Editar({ job, setJobs }) {
       >
         <img src="/assets/edit.png" alt="editar" />
       </a>
-
       {open && (
         <Modal>
           <div

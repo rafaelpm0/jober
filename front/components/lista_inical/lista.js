@@ -6,8 +6,9 @@ import handleDelete from "../../api/del_job";
 import Imagem from "../Image/image";
 import { handleBoleanoId } from "../handles/handles";
 import Editar from "../adicionar_editar/editar";
+import Message from "../utilitarios/message";
 
-export default function Lista({ jobs = [], setJobs }) {
+export default function Lista({ jobs = [], setJobs, setMessage}) {
   
   //recebe o job id e a variavel que ira controlar o estado de aberto e fechado de cada um
   const [openDescription, setOpenDescription] = useState([]);
@@ -79,11 +80,11 @@ export default function Lista({ jobs = [], setJobs }) {
                 <p>Data de criação: {job.job_create_at.slice(0, 10)}</p>
                 <a
                   id="icon_trash"
-                  onClick={() => handleDelete(setJobs, jobs, job.id)}
+                  onClick={() => handleDelete(setJobs, jobs, job.id, setMessage)}
                 >
                   <img src="/assets/trash.png" alt="trash" />
                 </a>
-                <Editar job={job} setJobs={setJobs} />
+                <Editar job={job} setJobs={setJobs} setMessage={setMessage} />
               </div>
               <div className={styles.description}>
                 <h3>Descrição: </h3>

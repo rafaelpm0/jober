@@ -1,4 +1,4 @@
-export default async function handleSubmit(e, job, del_image=false) {
+export default async function handleSubmit(e, job, del_image=false, setMessage) {
   e.preventDefault();
   try {
 
@@ -20,9 +20,11 @@ export default async function handleSubmit(e, job, del_image=false) {
     }
     
     const result = await response.json();
+    setMessage(["Tarefa editada", "success"])
 
     return result;
   } catch (error) {
+    setMessage(["Erro de envio", "error"])
    
   }
 }

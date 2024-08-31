@@ -1,23 +1,24 @@
 import styles from "../../styles/adicionar/adicionar.module.css";
 import { useState } from "react";
 import handleSubmit from "../../api/add_job";
-import Modal from "./modal";
-import {
-  handlBoelano,
-  handleChangeObjectEvent,
-  handleChangeDelete,
-  handleChangeImage,
-} from "../handles/handles";
+import Modal from "../Modal/modal";
+import { handlBoelano, handleChangeDelete } from "../handles/handles";
 import FormPost from "./form_post";
+import Message from "../utilitarios/message";
 
-export default function Adicionar({ setJobs }) {
+export default function Adicionar({ setJobs, setMessage }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
 
   async function handleForm(e) {
     e.preventDefault();
-    const result = await handleSubmit(e, include, setInclude);
-    handleChangeDelete(result, setJobs);
+    try {
+      const result = await handleSubmit(e, include, setInclude, setMessage);
+      handleChangeDelete(result, setJobs);
+    } catch (e) {
+      console.log(e);
+      setMessage("Erro de conexão no servidor", "error");
+    }
     setOpen(false);
   }
 
@@ -43,7 +44,11 @@ export default function Adicionar({ setJobs }) {
               className={styles.modal}
               onClick={() => handlBoelano(open, setOpen)}
             >
-              <FormPost handleForm={handleForm} include={include} setInclude={setInclude}/>
+              <FormPost
+                handleForm={handleForm}
+                include={include}
+                setInclude={setInclude}
+              />
             </a>
           </div>
         </Modal>
