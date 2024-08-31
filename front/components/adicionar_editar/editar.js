@@ -6,11 +6,10 @@ import { handlBoelano, handleChangeDelete } from "../handles/handles";
 import FormPut from "./form_put";
 import Message from "../utilitarios/message";
 
-export default function Editar({ job, setJobs }) {
+export default function Editar({ job, setJobs, setMessage }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
   const [delet, setDelet] = useState(false);
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
     setInclude(job);
@@ -37,8 +36,6 @@ export default function Editar({ job, setJobs }) {
       >
         <img src="/assets/edit.png" alt="editar" />
       </a>
-
-      <Message message={message} setMessage={setMessage}/> 
       {open && (
         <Modal>
           <div

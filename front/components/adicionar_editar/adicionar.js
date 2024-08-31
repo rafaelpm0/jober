@@ -6,10 +6,9 @@ import { handlBoelano, handleChangeDelete } from "../handles/handles";
 import FormPost from "./form_post";
 import Message from "../utilitarios/message";
 
-export default function Adicionar({ setJobs }) {
+export default function Adicionar({ setJobs, setMessage }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
-  const [message, setMessage] = useState();
 
   async function handleForm(e) {
     e.preventDefault();
@@ -34,7 +33,6 @@ export default function Adicionar({ setJobs }) {
         <img src="/assets/add.png" alt="imagem do job" />
       </a>
 
-      <Message message={message} setMessage={setMessage} />
       {open && (
         <Modal>
           <div

@@ -22,7 +22,7 @@ export default function Message({ message = ["", ""], setMessage }) {
     }
   }, [message]);
 
-  const className = `${styles.notification} ${visible ? `${styles.visible} `: ''} ${styles[message[1]]}`;
+  const className = `${styles.notification} ${visible ? `${styles.visible} `: `${styles.not_visible} `} ${styles[message[1]]}`;
 
   return <Modal><div className={className}>{message[0]}</div></Modal>;
 }

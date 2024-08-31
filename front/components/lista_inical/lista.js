@@ -8,13 +8,12 @@ import { handleBoleanoId } from "../handles/handles";
 import Editar from "../adicionar_editar/editar";
 import Message from "../utilitarios/message";
 
-export default function Lista({ jobs = [], setJobs }) {
+export default function Lista({ jobs = [], setJobs, setMessage}) {
   
   //recebe o job id e a variavel que ira controlar o estado de aberto e fechado de cada um
   const [openDescription, setOpenDescription] = useState([]);
   const [dispImage, setDispImage] = useState([]);
   const [openImage, setOpenImage] = useState([]);
-  const [message, setMessage] = useState('');
 
   // inicia o estado fechado
   useEffect(() => {
@@ -40,7 +39,6 @@ export default function Lista({ jobs = [], setJobs }) {
 
   return (
     <>
-      <Message message={message} setMessage={setMessage} />
       <h1 className={styles.title}>Tarefas:</h1>
       <div className={styles.container}>
         {jobs.map((job) => (
@@ -86,7 +84,7 @@ export default function Lista({ jobs = [], setJobs }) {
                 >
                   <img src="/assets/trash.png" alt="trash" />
                 </a>
-                <Editar job={job} setJobs={setJobs} />
+                <Editar job={job} setJobs={setJobs} setMessage={setMessage} />
               </div>
               <div className={styles.description}>
                 <h3>Descrição: </h3>
