@@ -1,17 +1,23 @@
 .notification {
-  position: fixed; /* Unificado para "fixed" */
+  position: fixed;
   padding: 12px;
   color: #fff;
   bottom: 0;
   right: 0;
-  z-index: 1;
   width: 100%;
   font-weight: 700;
   font-size: 20px;
+  opacity: 0;
+  background-color: transparent; /* Corrigido de "tr" para "transparent" */
+  min-height: 50px; /* Define uma altura mínima para evitar mudanças abruptas */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(20px); /* Inicialmente deslocado para baixo */
+  box-shadow: 0px -6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.visible {
   opacity: 1;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15), 
-              0px 3px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(0); /* Voltar à posição original */
 }
 
 .success {
@@ -23,16 +29,15 @@
 }
 
 .info {
-  background-color: #e7af06; /* Amarelo */
+  background-color: #f0c033; /* Amarelo */
 }
 
 @media screen and (min-width: 1026px) {
   .notification {
-      padding: 20px;
-      border-radius: 8px;
-      bottom: 40px;
-      right: 100px;
-      font-size: 25px;
-      transition: opacity 0.5s ease-out; /* Sobrescreve para desktop */
+    padding: 20px;
+    border-radius: 8px;
+    bottom: 40px;
+    right: 100px;
+    font-size: 25px;
   }
 }
