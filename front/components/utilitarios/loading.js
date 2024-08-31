@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import styles from '../../styles/load/load.module.css';
+import styles from '../../styles/utilitarios/load.module.css';
 
 export default function Loading(){
     useEffect(() => {

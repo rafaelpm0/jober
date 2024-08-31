@@ -1,4 +1,4 @@
-export default async function handleSubmit(e, include, setStatus){
+export default async function handleSubmit(e, include, setStatus, setMessage){
     e.preventDefault(); 
     try {
       
@@ -16,9 +16,10 @@ export default async function handleSubmit(e, include, setStatus){
       }
 
       const result = await response.json();
+      setMessage(["Tarefa Adicionada", "success"]);
       return result
     } catch (error) {
-      setStatus(`Erro: ${error.message}`);
+      setMessage(["Erro de envio ao servidor", "error"]);
     }      
  
   };   

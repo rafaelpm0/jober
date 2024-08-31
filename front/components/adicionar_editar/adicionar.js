@@ -9,14 +9,16 @@ import {
   handleChangeImage,
 } from "../handles/handles";
 import FormPost from "./form_post";
+import Message from "../utilitarios/message";
 
 export default function Adicionar({ setJobs }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
+  const [message, setMessage] = useState('');
 
   async function handleForm(e) {
     e.preventDefault();
-    const result = await handleSubmit(e, include, setInclude);
+    const result = await handleSubmit(e, include, setInclude, setMessage);
     handleChangeDelete(result, setJobs);
     setOpen(false);
   }
@@ -32,6 +34,7 @@ export default function Adicionar({ setJobs }) {
         <img src="/assets/add.png" alt="imagem do job" />
       </a>
 
+      <Message message={message} setMessage={setMessage}/>
       {open && (
         <Modal>
           <div
