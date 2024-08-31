@@ -1,7 +1,7 @@
 import styles from "../../styles/adicionar/adicionar.module.css";
 import { useState } from "react";
 import handleSubmit from "../../api/add_job";
-import Modal from "./modal";
+import Modal from "../Modal/modal";
 import {
   handlBoelano,
   handleChangeObjectEvent,
@@ -10,6 +10,7 @@ import {
 } from "../handles/handles";
 import FormPost from "./form_post";
 import Message from "../utilitarios/message";
+import { Expletus_Sans } from "next/font/google";
 
 export default function Adicionar({ setJobs }) {
   const [open, setOpen] = useState(false);
@@ -18,8 +19,13 @@ export default function Adicionar({ setJobs }) {
 
   async function handleForm(e) {
     e.preventDefault();
-    const result = await handleSubmit(e, include, setInclude, setMessage);
-    handleChangeDelete(result, setJobs);
+    try{
+      const result = await handleSubmit(e, include, setInclude, setMessage);
+      handleChangeDelete(result, setJobs);
+    }
+    catch(e){
+      setMessage('Erro de conexão no servidor', 'error')
+    }   
     setOpen(false);
   }
 
