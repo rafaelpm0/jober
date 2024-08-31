@@ -111,6 +111,7 @@ export function handleChangeDelete(result, setData) {
       });
     } catch (e) {
       console.error("Erro ao atualizar o estado:", e);
+      throw error;
     }
   }
   

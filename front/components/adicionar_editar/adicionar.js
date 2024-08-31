@@ -12,11 +12,10 @@ export default function Adicionar({ setJobs, setMessage }) {
   async function handleForm(e) {
     e.preventDefault();
     try {
-      const result = await handleSubmit(e, include, setInclude, setMessage);
+      const result = await handleSubmit(e, include, setMessage);
       handleChangeDelete(result, setJobs);
     } catch (e) {
       console.log(e);
-      setMessage("Erro de conexão no servidor", "error");
     }
     setOpen(false);
   }

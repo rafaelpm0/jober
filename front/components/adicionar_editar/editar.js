@@ -5,7 +5,7 @@ import Modal from "../Modal/modal";
 import { handlBoelano, handleChangeDelete } from "../handles/handles";
 import FormPut from "./form_put";
 
-export default function Editar({ job, setJobs, setMessage, setOpenImage}) {
+export default function Editar({ job, setJobs, setMessage, setOpenImage }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
   const [delet, setDelet] = useState(false);
@@ -16,17 +16,32 @@ export default function Editar({ job, setJobs, setMessage, setOpenImage}) {
 
   async function handleForm(e) {
     e.preventDefault();
-    const obj_inclusao = include;
+
+    const obj_inclusao = { ...include };
 
     delete obj_inclusao["job_create_at"];
     delete obj_inclusao["has_image"];
 
-    const result = await handleSubmit(e, obj_inclusao, delet, setMessage);
-    console.log(result)
-    handleChangeDelete(result, setJobs);
-    setOpen(false);
-    setOpenImage(false);
-    setDelet(false);
+    try {
+      const result = await handleSubmit(e, obj_inclusao, delet, setMessage);
+
+      try {
+        handleChangeDelete(result, setJobs);
+      } catch (processingError) {
+        setMessage(["Erro ao processar o resultado", "error"]);
+        console.error("Erro ao processar o resultado:", processingError);
+      }
+
+      setOpen(false);
+      setOpenImage(false);
+      setDelet(false);
+    } catch (submitError) {
+      console.error("Erro ao enviar os dados:", submitError);
+      setOpen(false);
+      setOpenImage(false);
+      setDelet(false);
+      setMessage(["Erro ao enviar os dados ao servidor", "error"]);
+    }
   }
 
   return (
