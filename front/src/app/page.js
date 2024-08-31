@@ -19,7 +19,7 @@ export default function Job() {
   return (
     <>
       <main>
-        <section>
+        <section>  
           <Adicionar setJobs={setJobs}/>
         </section>
         <article>
