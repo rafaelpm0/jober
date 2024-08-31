@@ -26,7 +26,7 @@ export default function Editar({ job, setJobs, setMessage, setOpenImage}) {
     handleChangeDelete(result, setJobs);
     setOpen(false);
     setOpenImage(false);
-    delet(false);
+    setDelet(false);
   }
 
   return (

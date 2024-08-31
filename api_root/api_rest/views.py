@@ -81,7 +81,6 @@ def job_manager(request):
 
         - Parâmetros:
           - 'id': ID do Job a ser atualizado.
-          - 'del_image' (opcional, default=False): Se 'true', a imagem associada ao Job será excluída. (No corpo da requisicao)
           - Dados do Job e Image no corpo da requisição.
         
         - Retorna:
@@ -92,6 +91,7 @@ def job_manager(request):
         - Parâmetros:
 
           - 'id': ID do Job a ser atualizado.
+          - 'del_image' (opcional, default=False): Se 'true', a imagem associada ao Job será excluída. (No corpo da requisicao)
           - Dados atualizados do Job no corpo da requisição.
 
         - Retorna:
