@@ -1,38 +1,34 @@
-export default async function handleSubmit(
-  e,
-  job,
-  del_image = false,
-  setMessage
-) {
+/**
+ * Manipula o envio do formulário e o processamento do resultado.
+ *
+ * @param {Event} e - O evento de submissão do formulário. É usado para prevenir o comportamento padrão de envio.
+ * @returns {Promise<void>} - Não retorna valor. Apenas executa operações de estado e fechamento de modais.
+ *
+ * @throws {Error} - Pode lançar um erro se ocorrer um problema durante o envio dos dados ou o processamento do resultado.
+ */
+async function handleForm(e) {
   e.preventDefault();
+
+  const obj_inclusao = { ...include };
+
+  delete obj_inclusao["job_create_at"];
+  delete obj_inclusao["has_image"];
+
   try {
-    job.del_image = del_image;
-    const response = await fetch(`http://127.0.0.1:8000/api/job/`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      const result = await handleSubmit(e, obj_inclusao, delet, setMessage);
 
-      body: JSON.stringify(job),
-    });
+      try {
+          handleChangeDelete(result, setJobs);
+      } catch (processingError) {
+          setMessage(["Erro ao processar o resultado", "error"]);
+          console.error("Erro ao processar o resultado:", processingError);
+      }
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const result = await response.json();
-    console.log(del_image, result.image == null);
-    if (del_image || result.image == null) {
-      result["has_image"] = false;
-    } else {
-      result["has_image"] = true;
-    }
-
-    setMessage(["Tarefa editada", "success"]);
-
-    return result;
-  } catch (error) {
-    setMessage(["Erro de envio", "error"]);
-    throw new Error(console.log(e));
+      setOpen(false);
+      setOpenImage(false);
+      setDelet(false);
+  } catch (submitError) {
+      console.error("Erro ao enviar os dados:", submitError);
+      setMessage(["Erro ao enviar os dados ao servidor", "error"]);
   }
 }
