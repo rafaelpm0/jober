@@ -1,0 +1,95 @@
+.form form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cinza-claro);
+  padding: 24px 16px;
+  margin: 0 16px;
+  position: absolute;
+  top: 120px;
+  width: calc(100% - 32px);
+  border-radius: 8px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--cinza-medio);
+}
+
+.form label {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+.form input,
+.form textarea {
+  font-family: "Nunito Sans";
+  margin-bottom: 12px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  line-height: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--cinza-medio);
+  outline: none;
+}
+
+
+.form textarea {
+  padding: 4px 6px;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+.form .btn {
+  padding: 4px 6px;
+  width: 100%;
+  border-radius: 8px;
+  height: 48px;
+  border-style: solid;
+  border-color: var(--cinza-medio);
+  outline: none;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--cinza-escuro-forte);
+  background-color: var(--cinza-claro);
+  margin: 12px auto 0;
+}
+
+.form .btn:hover {
+  background-color: var(--cinza-escuro-forte);
+  color: var(--cinza-claro);
+  border-color: var(--cinza-escuro-forte);
+}
+
+.form .image {
+  padding-left: 0;  
+  width: auto;
+  border: none;
+  outline: none;
+  margin-left: 0;
+  margin-bottom: 8px;
+
+}
+
+.form .del_btn{
+    width: 120px;
+    border-radius: 8px;
+    height: 30px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--cinza-medio);
+    outline: none;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    background-color: var(--cinza-claro);
+    color: var(--cinza-escuro-forte);
+
+}
+
+.form .delet{
+    background-color:#ff7f7f;   
+}
+

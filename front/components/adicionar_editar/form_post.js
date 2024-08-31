@@ -20,7 +20,7 @@ export default function FormPost({ handleForm, include, setInclude }) {
         onSubmit={(e) => handleForm(e)}
         onClick={(e) => e.stopPropagation()}
       >
-        <label htmlFor="job_name">Nome:</label>
+        <label htmlFor="job_name">Tarefa:</label>
         <input
           type="text"
           placeholder="Digite aqui"
@@ -42,13 +42,16 @@ export default function FormPost({ handleForm, include, setInclude }) {
         />
 
         <input
+          className={styles.image}
           type="file"
           name="image"
           onChange={(event) => handleChangeImage(event, setInclude)}
           id="image"
         />
 
-        <button type="submit">Enviar</button>
+        <button className={styles.btn} type="submit">
+          Enviar
+        </button>
       </form>
     </div>
   );

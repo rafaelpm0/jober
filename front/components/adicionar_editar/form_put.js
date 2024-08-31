@@ -15,7 +15,7 @@ export default function FormPut({
   return (
     <div className={styles.form}>
       <form onSubmit={handleForm} onClick={(e) => e.stopPropagation()}>
-        <label htmlFor="job_name">Nome:</label>
+        <label htmlFor="job_name">Tarefa:</label>
         <input
           type="text"
           placeholder="Digite aqui"
@@ -35,6 +35,7 @@ export default function FormPut({
         />
 
         <input
+          className={styles.image}
           type="file"
           name="image"
           onChange={(event) => {
@@ -45,11 +46,15 @@ export default function FormPut({
         <button
           type="button"
           onClick={() => handlBoelano(delet, setDelet)}
-          className={delet ? `${styles.delet}` : `${`${styles.not_delet}`}`}
+          className={`${styles.del_btn} ${
+            delet ? `${styles.delet}` : `${styles.not_delet}`
+          }`}
         >
-          Deletar
+          Deletar imagem
         </button>
-        <button type="submit">Enviar</button>
+        <button className={styles.btn} type="submit">
+          Enviar
+        </button>
       </form>
     </div>
   );

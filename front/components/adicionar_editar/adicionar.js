@@ -27,6 +27,7 @@ export default function Adicionar({ setJobs, setMessage }) {
         className={styles.add_btn}
         onClick={() => {
           handlBoelano(open, setOpen);
+          setInclude([])
         }}
       >
         <img src="/assets/add.png" alt="imagem do job" />
