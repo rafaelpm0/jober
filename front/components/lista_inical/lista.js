@@ -6,10 +6,9 @@ import handleDelete from "../../api/del_job";
 import Imagem from "../Image/image";
 import { handleBoleanoId } from "../handles/handles";
 import Editar from "../adicionar_editar/editar";
+import Adicionar from "../../components/adicionar_editar/adicionar.js";
 
-
-export default function Lista({ jobs = [], setJobs, setMessage}) {
-  
+export default function Lista({ jobs = [], setJobs, setMessage }) {
   const [openDescription, setOpenDescription] = useState([]);
   const [dispImage, setDispImage] = useState([]);
   const [openImage, setOpenImage] = useState([]);
@@ -35,10 +34,13 @@ export default function Lista({ jobs = [], setJobs, setMessage}) {
     });
   }, [jobs]);
 
-
   return (
     <>
-      <h1 className={styles.title}>Tarefas:</h1>
+      <div>
+        <h1 className={styles.title}>Tarefas:</h1>
+        <Adicionar setJobs={setJobs} setMessage={setMessage} />
+      </div>
+
       <div className={styles.container}>
         {jobs.map((job) => (
           <section key={job.id}>
@@ -79,11 +81,18 @@ export default function Lista({ jobs = [], setJobs, setMessage}) {
                 <p>Data de criação: {job.job_create_at.slice(0, 10)}</p>
                 <a
                   id="icon_trash"
-                  onClick={() => handleDelete(setJobs, jobs, job.id, setMessage)}
+                  onClick={() =>
+                    handleDelete(setJobs, jobs, job.id, setMessage)
+                  }
                 >
                   <img src="/assets/trash.png" alt="trash" />
                 </a>
-                <Editar job={job} setJobs={setJobs} setMessage={setMessage} setOpenImage={setOpenImage} />
+                <Editar
+                  job={job}
+                  setJobs={setJobs}
+                  setMessage={setMessage}
+                  setOpenImage={setOpenImage}
+                />
               </div>
               <div className={styles.description}>
                 <h3>Descrição: </h3>
