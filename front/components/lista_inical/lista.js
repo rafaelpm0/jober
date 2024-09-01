@@ -8,6 +8,29 @@ import { handleBoleanoId } from "../handles/handles";
 import Editar from "../adicionar_editar/editar";
 import Adicionar from "../../components/adicionar_editar/adicionar.js";
 
+/**
+ * Componente que exibe uma lista de jobs com opções para visualizar detalhes, editar e excluir.
+ * 
+ * @param {Object} props - Propriedades passadas para o componente.
+ * @param {Array} props.jobs - Lista de jobs a serem exibidos.
+ * @param {Function} props.setJobs - Função para atualizar o estado dos jobs.
+ * @param {Function} props.setMessage - Função para definir mensagens de feedback.
+ * 
+ * @returns {JSX.Element} - O componente JSX que renderiza a lista de jobs.
+ * 
+ * @example
+ * import Lista from './path/to/Lista';
+ * 
+ * function JobList() {
+ *   const [jobs, setJobs] = useState([]);
+ *   const [message, setMessage] = useState([]);
+ * 
+ *   return (
+ *     <Lista jobs={jobs} setJobs={setJobs} setMessage={setMessage} />
+ *   );
+ * }
+ */
+
 export default function Lista({ jobs = [], setJobs, setMessage }) {
   const [openDescription, setOpenDescription] = useState([]);
   const [dispImage, setDispImage] = useState([]);

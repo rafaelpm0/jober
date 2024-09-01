@@ -5,6 +5,16 @@ import Modal from "../Modal/modal";
 import { handlBoelano, handleChangeDelete } from "../handles/handles";
 import FormPost from "./form_post";
 
+/**
+ * Componente `Adicionar` para adicionar um novo item.
+ *
+ * @param {Object} props - Propriedades do componente.
+ * @param {Function} props.setJobs - Função para atualizar a lista de trabalhos.
+ * @param {Function} props.setMessage - Função para definir uma mensagem de status.
+ *
+ * @returns {JSX.Element} Componente de interface para adicionar um novo item.
+ */
+
 export default function Adicionar({ setJobs, setMessage }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
