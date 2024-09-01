@@ -55,11 +55,7 @@ export default function Editar({ job, setJobs, setMessage, setOpenImage }) {
       </a>
       {open && (
         <Modal>
-          <div
-            className={`${styles.container_form} ${
-              open ? `${styles.open}` : `${styles.close}`
-            }`}
-          >
+          <div className={`${styles.container_form} ${styles.efect}`}>
             <a
               className={styles.modal}
               onClick={() => handlBoelano(open, setOpen)}

@@ -1,7 +1,10 @@
-.title {
+.title{
+  margin-bottom: 16px;
+}
+
+.title h1{
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 16px;
   padding-left: 8px;
   line-height: 27px;
 }
@@ -150,7 +153,14 @@
 }
 
 @media screen and (min-width: 1026px) {
-  .title {
+  
+  .title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .title h1{
     font-size: 32px;
   }
   .sub_title {
@@ -172,4 +182,5 @@
     line-height: 22px;
     font-size: 18px;
   }
+
 }

@@ -35,9 +35,7 @@ export default function Adicionar({ setJobs, setMessage }) {
       {open && (
         <Modal>
           <div
-            className={`${styles.container_form} ${
-              open ? `${styles.open}` : `${styles.close}`
-            }`}
+            className={`${styles.container_form} ${styles.efect}`}
           >
             <a
               className={styles.modal}

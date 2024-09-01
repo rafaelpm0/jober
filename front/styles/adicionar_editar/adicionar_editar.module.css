@@ -15,8 +15,21 @@
     top: 0;
     right: 0;
     background-color: #000000c4;
+    transition: background-color 5s ease;
 }
 
+@keyframes slideIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .efect a{
+    animation: slideIn 0.5s ease forwards;
+  }
 
 @media screen and (min-width: 1026px){
     .add_btn{
@@ -24,6 +37,8 @@
         right: unset;
         position: relative;
     }
+
+
 
     
 }

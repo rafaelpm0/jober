@@ -36,8 +36,8 @@ export default function Lista({ jobs = [], setJobs, setMessage }) {
 
   return (
     <>
-      <div>
-        <h1 className={styles.title}>Tarefas:</h1>
+      <div className={styles.title}>
+        <h1>Tarefas:</h1>
         <Adicionar setJobs={setJobs} setMessage={setMessage} />
       </div>
 
