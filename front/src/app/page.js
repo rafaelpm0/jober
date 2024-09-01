@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Lista from "../../components/lista_inical/lista.js";
 import { useEffect, useState } from "react";
 import fetchData from "../../api/get_no_image.js";
-import Adicionar from "../../components/adicionar_editar/adicionar.js";
 import Message from "../../components/utilitarios/message.js";
 
 export default function Job() {
@@ -22,9 +20,6 @@ export default function Job() {
   return (
     <>
       <main>
-        <section>  
-          <Adicionar setJobs={setJobs} setMessage={setMessage}/>
-        </section>
         <article>
           <Lista jobs={jobs} setJobs={setJobs} setMessage={setMessage}/>
         </article>

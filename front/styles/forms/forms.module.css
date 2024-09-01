@@ -1,12 +1,14 @@
+.form{
+  position: absolute;
+  top: 120px;
+  width: calc(100%);
+}
 .form form {
   display: flex;
   flex-direction: column;
   background-color: var(--cinza-claro);
   padding: 24px 16px;
   margin: 0 16px;
-  position: absolute;
-  top: 120px;
-  width: calc(100% - 32px);
   border-radius: 8px;
   border-width: 2px;
   border-style: solid;
@@ -93,3 +95,27 @@
     background-color:#ff7f7f;   
 }
 
+@media screen and (min-width:640px){
+  .form form {
+   max-width: 500px;
+   margin: 0 auto;
+  }
+}
+
+
+@media screen and (min-width:640px){
+  .form form {
+   max-width: 600px;
+   min-height: 400px;
+   margin: auto;
+  }
+
+  .form input,
+.form textarea{
+  margin-bottom: 16px;
+}
+
+  .form .btn{
+    margin-top: auto;
+  }
+}
