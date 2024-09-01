@@ -1,42 +1,27 @@
 /**
- * Função assíncrona que realiza uma solicitação para a API de jobs e atualiza o estado com os dados recebidos.
+ * Função assíncrona que realiza uma solicitação para a API de jobs e retorna os dados recebidos.
+ * Atualiza o estado com mensagens de erro, se necessário.
  * 
- * @param {Function} setJobs - Função de atualização de estado do `useState` usada para armazenar a lista de jobs retornada pela API.
+ * @param {Function} setMessage - Função de atualização de estado do `useState` usada para armazenar mensagens de erro.
+ * @returns {Promise<Array>} - Retorna uma promessa que resolve com a lista de jobs retornada pela API.
  * 
  * @throws {Error} Se a resposta da API não for bem-sucedida, um erro é lançado com o status da resposta.
  * 
- * @example
- * import { useState, useEffect } from 'react';
- * import fetchData from './path/to/fetchData';
- * 
- * export default function JobComponent() {
- *   const [jobs, setJobs] = useState([]);
- * 
- *   useEffect(() => {
- *     fetchData(setJobs);
- *   }, []);
- * 
- *   return (
- *     <div>
- *       {/* Renderiza os dados dos jobs /}
- *     </div>
- *   );
- * }
  **/
+export default async function fetchData(setMessage) {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/job/?all=true&inst_img=true");
 
-export default async function fetchData(setJobs) {
-    try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/job/?all=true&inst_img=true");
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const jobs = await response.json();
-      setJobs(jobs);
-
-      // Atualiza o estado com os dados recebidos
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      setMessage(["Servidor indisponível", "error"]);
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-  };
+
+    const jobs = await response.json();
+    return jobs;
+  } catch (err) {
+    setMessage(["Servidor indisponível", "error"]);
+    console.error("Erro ao buscar dados:", err);
+    throw err; // Lance o erro novamente para que ele possa ser tratado no componente
+  }
+}

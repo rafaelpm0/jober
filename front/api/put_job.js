@@ -1,34 +1,54 @@
 /**
- * Manipula o envio do formulário e o processamento do resultado.
- *
- * @param {Event} e - O evento de submissão do formulário. É usado para prevenir o comportamento padrão de envio.
- * @returns {Promise<void>} - Não retorna valor. Apenas executa operações de estado e fechamento de modais.
- *
- * @throws {Error} - Pode lançar um erro se ocorrer um problema durante o envio dos dados ou o processamento do resultado.
+ * Função assíncrona que lida com o envio de dados de um job para a API e atualiza o estado de mensagens com o resultado da operação.
+ * 
+ * @param {Event} e - O evento do formulário que está sendo manipulado.
+ * @param {Object} job - O objeto de job contendo os dados a serem enviados para a API.
+ * @param {boolean} [del_image=false] - Flag opcional para indicar se a imagem associada ao job deve ser excluída.
+ * @param {Function} setMessage - Função de atualização de estado para definir mensagens de sucesso ou erro.
+ * 
+ * @returns {Promise<Object>} - Retorna uma promessa que resolve com o resultado da API, se a operação for bem-sucedida.
+ * 
+ * @throws {Error} Se a resposta da API não for bem-sucedida, um erro é lançado com o status da resposta.
+ * 
  */
-async function handleForm(e) {
-  e.preventDefault();
+export default async function handleSubmit(e, job, del_image = false, setMessage) {
+    e.preventDefault();
+    try {
+      // Adiciona a flag para exclusão de imagem, se fornecida
+      job.del_image = del_image;
 
-  const obj_inclusao = { ...include };
+      if (job.image == null){
+        delete job['image']
+      }
+  
+      const response = await fetch(`http://127.0.0.1:8000/api/job/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(job),
+      });
 
-  delete obj_inclusao["job_create_at"];
-  delete obj_inclusao["has_image"];
+      if (!response.ok) {
+        setMessage(["Erro de envio ao servidor", "error"]);
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      if(result['image']!== null){
+        result['has_image'] = true;
 
-  try {
-      const result = await handleSubmit(e, obj_inclusao, delet, setMessage);
+      }else{
 
-      try {
-          handleChangeDelete(result, setJobs);
-      } catch (processingError) {
-          setMessage(["Erro ao processar o resultado", "error"]);
-          console.error("Erro ao processar o resultado:", processingError);
+        result['has_image'] = false;
       }
 
-      setOpen(false);
-      setOpenImage(false);
-      setDelet(false);
-  } catch (submitError) {
-      console.error("Erro ao enviar os dados:", submitError);
-      setMessage(["Erro ao enviar os dados ao servidor", "error"]);
+      setMessage(["Tarefa editada", "success"]);
+  
+      return result;
+    } catch (error) {
+      setMessage(["Erro de envio ao servidor", "error"]);
+      throw new Error(`HTTP error! Status: ${error}`);
+    }
   }
-}
+  

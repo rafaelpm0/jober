@@ -5,6 +5,19 @@ import Modal from "../Modal/modal";
 import { handlBoelano, handleChangeDelete } from "../handles/handles";
 import FormPut from "./form_put";
 
+/**
+ * Componente React para editar um job. Exibe um botão de edição que abre um modal com um formulário para atualizar os detalhes do job.
+ * 
+ * @param {Object} props - Propriedades passadas para o componente.
+ * @param {Object} props.job - Objeto representando o job a ser editado.
+ * @param {Function} props.setJobs - Função de atualização de estado para definir a lista de jobs.
+ * @param {Function} props.setMessage - Função de atualização de estado para definir mensagens de sucesso ou erro.
+ * @param {Function} props.setOpenImage - Função de atualização de estado para controlar a visibilidade da imagem.
+ * 
+ * @returns {JSX.Element} - O componente JSX que renderiza o botão de edição e o modal de formulário.
+ * 
+ * }
+ */
 export default function Editar({ job, setJobs, setMessage, setOpenImage }) {
   const [open, setOpen] = useState(false);
   const [include, setInclude] = useState([]);
@@ -12,7 +25,7 @@ export default function Editar({ job, setJobs, setMessage, setOpenImage }) {
 
   useEffect(() => {
     setInclude(job);
-  }, []);
+  }, [job]);
 
   async function handleForm(e) {
     e.preventDefault();
@@ -24,23 +37,15 @@ export default function Editar({ job, setJobs, setMessage, setOpenImage }) {
 
     try {
       const result = await handleSubmit(e, obj_inclusao, delet, setMessage);
-
-      try {
-        handleChangeDelete(result, setJobs);
-      } catch (processingError) {
-        setMessage(["Erro ao processar o resultado", "error"]);
-        console.error("Erro ao processar o resultado:", processingError);
-      }
-
+      handleChangeDelete(result, setJobs);
       setOpen(false);
       setOpenImage(false);
       setDelet(false);
-    } catch (submitError) {
-      console.error("Erro ao enviar os dados:", submitError);
+    } catch (err) {
+      console.error("Erro ao enviar os dados:", err);
       setOpen(false);
       setOpenImage(false);
       setDelet(false);
-      setMessage(["Erro ao enviar os dados ao servidor", "error"]);
     }
   }
 

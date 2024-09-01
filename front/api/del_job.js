@@ -26,9 +26,9 @@ export default async function handleDelete(setJobs, jobs, id, setMessage) {
       setJobs(updatedJobs);
       setMessage(["Deletado com sucesso", "success"])
     } else {
-      setMessage(["Erro de comunicação", "error"])
+      setMessage(["Erro de envio ao servidor", "error"])
     }
   } catch (err) {
-    setMessage(["Erro de comunicação", "error"])
+    setMessage(["Erro de envio ao servidor", "error"])
   }
 }
