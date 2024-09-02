@@ -13,17 +13,21 @@
  * await Image({ setImage, id: jobId });
  */
 
-export default async function getImage(id) {
+export default async function getImage(id, setMessage) {
     try {
       
       const response = await fetch(`http://127.0.0.1:8000/api/img/?job_id=${id}`);
       if (!response.ok) {
+        setMessage(["Erro ao carregar imagem", "info"])
         throw new Error(`HTTP error! Status: ${response.status}`);
+        
       }
       const data = await response.json();
       return data
       // Atualiza o estado com os dados recebidos
     } catch (error) {
-      console.error("Error fetching data:", error);
+      setMessage(["Erro ao carregar imagem", "info"])
+      throw new Error(`HTTP error! Status: ${response.status}`);
+
     }
   };

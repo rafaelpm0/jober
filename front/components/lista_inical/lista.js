@@ -125,7 +125,7 @@ export default function Lista({ jobs = [], setJobs, setMessage }) {
 
             {openImage[job.id] && (
               <div className={styles.image}>
-                <Imagem id={job.id} />
+                <Imagem id={job.id} setMessage={setMessage} />
               </div>
             )}
           </section>

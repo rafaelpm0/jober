@@ -19,7 +19,7 @@ import Loading from "../utilitarios/loading";
  *
  * @returns {JSX.Element} - Retorna um elemento JSX que representa o conteúdo da imagem.
  */
-export default function Imagem({ id }) {
+export default function Imagem({ id, setMessage }) {
   const [image, setImage] = useState(""); // Estado para armazenar a imagem
   const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
 
@@ -33,10 +33,17 @@ export default function Imagem({ id }) {
    * Atualiza o estado da imagem e o estado de carregamento.
    */
   async function load() {
-    setLoading(true);
-    const img = await getImage(id); // Recupera a imagem usando o ID
-    setImage(img);
-    setLoading(false);
+    try{
+
+      setLoading(true);
+      const img = await getImage(id, setMessage); // Recupera a imagem usando o ID
+      setImage(img);
+      setLoading(false);
+
+    }catch(e){
+      setLoading(true);
+    }
+
   }
 
   return (
